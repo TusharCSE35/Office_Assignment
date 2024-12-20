@@ -440,7 +440,7 @@ int main() {
     int choice;
     while (true) {
         cout << endl << "--- CRM Menu ---" << endl;
-        cout << "1. Add Lead" << endl;
+        cout << "1. Addd Lead" << endl;
         cout << "2. Add Contact to Lead" << endl;
         cout << "3. Modify Contact" << endl;
         cout << "4. Modify Lead" << endl;
