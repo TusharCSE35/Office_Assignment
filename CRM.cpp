@@ -429,7 +429,7 @@ public:
         cout << "Data saved to files successfully." << endl;
     }
 
-    // Load all leads and contacts from file
+
     void loadDataFromFile() {
         ifstream leadFile("leads.txt");
         ifstream contactFile("contacts.txt");
@@ -439,7 +439,6 @@ public:
             return;
         }
 
-        // Load leads
         string line;
         while (getline(leadFile, line)) {
             stringstream ss(line);
@@ -453,10 +452,9 @@ public:
             Lead lead(stoi(id), name, address, website);
             leadList.add(lead);
 
-            leadCounter = max(leadCounter, stoi(id)); // Update lead counter
+            leadCounter = max(leadCounter, stoi(id));
         }
 
-        // Load contacts
         while (getline(contactFile, line)) {
             stringstream ss(line);
             string id, name, email, address, leadId;
@@ -478,7 +476,7 @@ public:
                 contactList.add(contact);
             }
 
-            contactCounter = max(contactCounter, stoi(id) % 100); // Update contact counter
+            contactCounter = max(contactCounter, stoi(id) % 100); 
         }
 
         leadFile.close();
