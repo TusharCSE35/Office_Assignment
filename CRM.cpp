@@ -537,7 +537,7 @@ int main() {
                 break;
             case 9:
                 crm.saveDataToFile();
-                cout << "Exiting program. Goodbye!" << endl;
+                cout << "Exiting program. Goobye!" << endl;
                 return 0;
             default:
                 cout << "Invalid choice! Try again." << endl;
