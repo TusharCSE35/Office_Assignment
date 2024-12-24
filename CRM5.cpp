@@ -434,7 +434,7 @@ public:
     }
 
     void saveDataToFile() {
-        ofstream leadFile("leads3.txt", ios::app); 
+        ofstream leadFile("leads5.txt", ios::app); 
         if (!leadFile.is_open()) {
             cout << "Error opening leads file for appending!" << endl;
             return;
@@ -457,7 +457,7 @@ public:
 
         leadFile.close();
 
-        ofstream contactFile("contacts3.txt", ios::app);  
+        ofstream contactFile("contacts5.txt", ios::app);  
         if (!contactFile.is_open()) {
             cout << "Error opening contacts file for appending!" << endl;
             return;
@@ -475,7 +475,7 @@ public:
 
 
     void loadDataFromFile() {
-        leadList.loadDataFromFile("leads3.txt", [this](ifstream& ss) {
+        leadList.loadDataFromFile("leads5.txt", [this](ifstream& ss) {
             string id, name, address, website;
             getline(ss, id, '|');
             getline(ss, name, '|');
@@ -487,7 +487,7 @@ public:
             return lead;
         });
 
-        contactList.loadDataFromFile("contacts3.txt", [](ifstream& ss) {
+        contactList.loadDataFromFile("contacts5.txt", [](ifstream& ss) {
             string id, name, email, address, leadId;
             getline(ss, id, '|');
             getline(ss, name, '|');
