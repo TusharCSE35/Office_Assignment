@@ -116,8 +116,7 @@ public:
     void setAddress(const string& address) { _address = address; }
 
     void display() const {
-        cout << "Contact(ID: " << _id << ", Name: " << _name
-             << ", Email: " << _email << ", Address: " << _address << ")" << endl;
+        cout << "Contact(ID: " << _id << ", Name: " << _name << ", Email: " << _email << ", Address: " << _address << ")" << endl;
     }
 };
 
@@ -153,8 +152,7 @@ public:
     }
 
     void display() const {
-        cout << "Lead(ID: " << _id << ", Name: " << _name
-             << ", Address: " << _address << ", Website: " << _website << ")" << endl;
+        cout << "Lead(ID: " << _id << ", Name: " << _name << ", Address: " << _address << ", Website: " << _website << ")" << endl;
     }
 
     void displayContacts() const {
@@ -241,7 +239,7 @@ public:
 
 
     void modifyLead() {
-         string leadName;
+        string leadName;
         cout << "Enter Lead Name to search: ";
         cin.ignore();
         getline(cin, leadName);
@@ -434,45 +432,21 @@ public:
     }
 
     void saveDataToFile() {
-        ofstream leadFile("leads3.txt", ios::app); 
-        if (!leadFile.is_open()) {
-            cout << "Error opening leads file for appending!" << endl;
-            return;
-        }
-
-        Node<Lead>* leadNode = leadList.getHead();
-        while (leadNode) {
-            const Lead& lead = leadNode->data;
-            leadFile << lead.getId() << "|" << lead.getName() << "|" << lead.getAddress() << "|" << lead.getWebsite() << endl;
+        leadList.saveDataToFile("leads3.txt", [](ofstream& file, const Lead& lead) {
+            file << lead.getId() << "|" << lead.getName() << "|" << lead.getAddress() << "|" << lead.getWebsite() << endl;
 
             Node<Contact>* contactNode = lead.getContactsHead();
             while (contactNode) {
                 const Contact& contact = contactNode->data;
-                leadFile << contact.getId() << "|" << contact.getName() << "|" << contact.getEmail() << "|" << contact.getAddress() << "|" << lead.getId() << endl;
+                file << contact.getId() << "|" << contact.getName() << "|" << contact.getEmail() << "|" << contact.getAddress() << "|" << lead.getId() << endl;
                 contactNode = contactNode->next;
             }
+        });
 
-            leadNode = leadNode->next;
-        }
-
-        leadFile.close();
-
-        ofstream contactFile("contacts3.txt", ios::app);  
-        if (!contactFile.is_open()) {
-            cout << "Error opening contacts file for appending!" << endl;
-            return;
-        }
-
-        Node<Contact>* contactNode = contactList.getHead();
-        while (contactNode) {
-            const Contact& contact = contactNode->data;
-            contactFile << contact.getId() << "|" << contact.getName() << "|" << contact.getEmail() << "|" << contact.getAddress() << endl;
-            contactNode = contactNode->next;
-        }
-
-        contactFile.close();
+        contactList.saveDataToFile("contacts3.txt", [](ofstream& file, const Contact& contact) {
+            file << contact.getId() << "|" << contact.getName() << "|" << contact.getEmail() << "|" << contact.getAddress() << endl;
+        });
     }
-
 
     void loadDataFromFile() {
         leadList.loadDataFromFile("leads3.txt", [this](ifstream& ss) {
@@ -530,11 +504,9 @@ int main() {
         switch (choice) {
             case 1:
                 crm.addLead();
-                crm.saveDataToFile();
                 break;
             case 2:
                 crm.addContactToLead();
-                crm.saveDataToFile();
                 break;
             case 3:
                 crm.modifyLead();
@@ -555,6 +527,7 @@ int main() {
                 crm.displayAllContacts();
                 break;
             case 9:
+                crm.saveDataToFile();
                 cout << "Exiting program. Goobye!" << endl;
                 return 0;
             default:
