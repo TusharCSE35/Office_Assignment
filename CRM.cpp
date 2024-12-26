@@ -391,6 +391,20 @@ public:
     }
 
 
+    void displayAllLeads() {
+        if (!leadList.getHead()) {
+            cout << "No leads available." << endl;
+            return;
+        }
+
+        cout << "--- All Leads ---" << endl;
+        Node<Lead>* leadNode = leadList.getHead();
+        while (leadNode) {
+            leadNode->data.display();
+            leadNode = leadNode->next;
+        }
+    }
+
     void displayAllContacts() {
         contactList.displayAll([](const Contact & contact) {
             contact.display();
@@ -497,9 +511,10 @@ int main() {
         cout << "4. Modify Contact" << endl;
         cout << "5. Search Lead by Name" << endl;
         cout << "6. Search Contact by Name" << endl;
-        cout << "7. Display All Leads and Contacts" << endl;
+        cout << "7. Display All Leads" << endl;
         cout << "8. Display All Contacts" << endl;
-        cout << "9. Exit" << endl;
+        cout << "9. Display all Leads and Contacts" << endl;
+        cout << "10. Exit" << endl;
 
         cout << "Enter your choice: ";
         int choice;
@@ -530,16 +545,18 @@ int main() {
             crm.searchContactsByName();
             break;
         case 7:
-            crm.displayAllLeadsAndContacts();
+            crm.displayAllLeads();
             break;
         case 8:
             crm.displayAllContacts();
             break;
         case 9:
+            crm.displayAllLeadsAndContacts();
+            break;
+        case 10:
             crm.saveDataToFile();
-            cout << "Exiting program!!" << endl;
-            return 0;
-        default:
+            cout << "Exiting program!" << endl;
+        return 0;        default:
             cout << "Invalid choice! Plz try again." << endl;
         }
     }
