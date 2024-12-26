@@ -45,7 +45,7 @@ public:
 
     void displayAll(const function<void(const T&)>& displayFn) const {
         if (!head) {
-            cout << "No items available." << endl;
+            cout << "    No contacts available." << endl;
             return;
         }
 
@@ -80,7 +80,7 @@ public:
     void setAddress(const string& address) { _address = address; }
 
     void display() const {
-        cout << "Contact(ID: " << _id << ", Name: " << _name
+        cout << "    Contact(ID: " << _id << ", Name: " << _name
              << ", Email: " << _email << ", Address: " << _address << ")" << endl;
     }
 };
@@ -91,7 +91,7 @@ private:
     string _name;
     string _address;
     string _website;
-    List<Contact> contactList;          
+    List<Contact> contactList;
 
 public:
     Lead(int id, const string& name, const string& address, const string& website)
@@ -111,7 +111,7 @@ public:
     }
 
     Node<Contact>* searchContactByName(const string& name) {
-        return contactList.search([&](const Contact& contact) {
+        return contactList.search([&](const Contact & contact) {
             return contact.getName() == name;
         });
     }
@@ -122,7 +122,7 @@ public:
     }
 
     void displayContacts() const {
-        contactList.displayAll([](const Contact& contact) { contact.display(); });
+        contactList.displayAll([](const Contact & contact) { contact.display(); });
     }
 
     Node<Contact>* getContactsHead() const { return contactList.getHead(); }
@@ -156,36 +156,36 @@ public:
         cout << "Enter Lead Name to search: ";
         cin.ignore();
         getline(cin, leadName);
-    
-        bool flag=false;
-        leadList.displayAll([&](const Lead& lead) {
+
+        bool flag = false;
+        leadList.displayAll([&](const Lead & lead) {
             if (lead.getName() == leadName) {
                 lead.display();
-                flag=true;
+                flag = true;
             }
         });
-    
+
         if (!flag) {
             cout << "No leads found with the name: " << leadName << endl;
             return;
         }
-    
-    
+
+
         int leadId;
         cout << "Enter Lead ID to add a contact: ";
         cin >> leadId;
-    
-        Node<Lead>* leadNode = leadList.search([&](const Lead& lead) {
+
+        Node<Lead>* leadNode = leadList.search([&](const Lead & lead) {
             return lead.getId() == leadId;
         });
-    
+
         if (!leadNode) {
             cout << "Invalid Lead ID." << endl;
             return;
         }
-    
+
         leadNode->data.display();
-    
+
         string contactName, email, address;
         cout << "Enter Contact Name: ";
         cin.ignore();
@@ -194,40 +194,40 @@ public:
         getline(cin, email);
         cout << "Enter Contact Address: ";
         getline(cin, address);
-    
+
         int contactId = leadId * 100 + (++contactCounter);
         Contact contact(contactId, contactName, email, address);
         leadNode->data.addContact(contact);
         contactList.add(contact);
-    
+
         cout << "Contact added successfully to the lead." << endl;
     }
 
 
     void modifyLead() {
-         string leadName;
+        string leadName;
         cout << "Enter Lead Name to search: ";
         cin.ignore();
         getline(cin, leadName);
-    
-        bool flag=false;
-        leadList.displayAll([&](const Lead& lead) {
+
+        bool flag = false;
+        leadList.displayAll([&](const Lead & lead) {
             if (lead.getName() == leadName) {
                 lead.display();
-                flag=true;
+                flag = true;
             }
         });
-    
+
         if (!flag) {
             cout << "No leads found with the name: " << leadName << endl;
             return;
         }
-    
+
         int leadId;
         cout << "Enter Lead ID to modify: ";
         cin >> leadId;
 
-        Node<Lead>* leadNode = leadList.search([&](const Lead& lead) {
+        Node<Lead>* leadNode = leadList.search([&](const Lead & lead) {
             return lead.getId() == leadId;
         });
 
@@ -257,38 +257,38 @@ public:
         cout << "Enter Contact Name to search: ";
         cin.ignore();
         getline(cin, contactName);
-    
+
         bool flag = false;
         Node<Lead>* leadNode = leadList.getHead();
         while (leadNode) {
             Node<Contact>* contactNode = leadNode->data.getContactsHead();
             while (contactNode) {
                 if (contactNode->data.getName() == contactName) {
-                    contactNode->data.display(); 
-                    leadNode->data.display();  
+                    contactNode->data.display();
+                    leadNode->data.display();
                     flag = true;
                 }
                 contactNode = contactNode->next;
             }
             leadNode = leadNode->next;
         }
-    
+
         if (!flag) {
             cout << "No contacts found with the name: " << contactName << endl;
         }
-        
+
         int contactId;
         cout << "Enter Contact ID to modify: ";
         cin >> contactId;
 
         leadNode = leadList.getHead();
-        flag=false;
+        flag = false;
         while (leadNode) {
             Node<Contact>* contactNode = leadNode->data.getContactsHead();
             while (contactNode) {
-                if(contactNode->data.getId() == contactId){
-                    contactNode->data.display(); 
-                    
+                if (contactNode->data.getId() == contactId) {
+                    contactNode->data.display();
+
                     string name, email, address;
                     cout << "Enter new Contact Name: ";
                     cin.ignore();
@@ -297,11 +297,11 @@ public:
                     getline(cin, email);
                     cout << "Enter new Contact Address: ";
                     getline(cin, address);
-            
+
                     contactNode->data.setName(name);
                     contactNode->data.setEmail(email);
                     contactNode->data.setAddress(address);
-                    
+
                     Node<Contact>* tempContact = contactList.getHead();
                     while (tempContact) {
                         if (tempContact->data.getId() == contactId) {
@@ -312,33 +312,33 @@ public:
                         }
                         tempContact = tempContact->next;
                     }
-                    
+
                     cout << "Contact updated successfully." << endl;
                     flag = true;
                     break;
                 }
                 contactNode = contactNode->next;
             }
-            if(flag)break;
+            if (flag)break;
             leadNode = leadNode->next;
         }
     }
-    
+
 
     void searchLeadsByName() {
         string leadName;
         cout << "Enter Lead Name to search: ";
         cin.ignore();
         getline(cin, leadName);
-    
-        bool flag=false;
-        leadList.displayAll([&](const Lead& lead) {
+
+        bool flag = false;
+        leadList.displayAll([&](const Lead & lead) {
             if (lead.getName() == leadName) {
                 lead.display();
-                flag=true;
+                flag = true;
             }
         });
-    
+
         if (!flag) {
             cout << "No leads found with the name: " << leadName << endl;
             return;
@@ -350,50 +350,50 @@ public:
         cout << "Enter Contact Name to search: ";
         cin.ignore();
         getline(cin, contactName);
-    
+
         bool flag = false;
         Node<Lead>* leadNode = leadList.getHead();
         while (leadNode) {
             Node<Contact>* contactNode = leadNode->data.getContactsHead();
             while (contactNode) {
                 if (contactNode->data.getName() == contactName) {
-                    contactNode->data.display(); 
-                    leadNode->data.display();  
+                    contactNode->data.display();
+                    leadNode->data.display();
                     flag = true;
                 }
                 contactNode = contactNode->next;
             }
             leadNode = leadNode->next;
         }
-    
+
         if (!flag) {
             cout << "No contacts found with the name: " << contactName << endl;
         }
     }
-    
+
 
     void displayAllLeadsAndContacts() {
         if (!leadList.getHead()) {
             cout << "No leads available." << endl;
             return;
         }
-    
+
         cout << "--- All Leads and Contacts ---" << endl;
         Node<Lead>* leadNode = leadList.getHead();
-    
+
         while (leadNode) {
-            leadNode->data.display(); 
+            leadNode->data.display();
             cout << "  Contacts for this lead:" << endl;
             leadNode->data.displayContacts();
-    
+
             leadNode = leadNode->next;
         }
     }
-    
+
 
     void displayAllContacts() {
-        contactList.displayAll([](const Contact& contact) {
-        contact.display();
+        contactList.displayAll([](const Contact & contact) {
+            contact.display();
         });
     }
 
@@ -467,7 +467,7 @@ public:
 
             Contact contact(stoi(id), name, email, address);
 
-            Node<Lead>* leadNode = leadList.search([&](const Lead& lead) {
+            Node<Lead>* leadNode = leadList.search([&](const Lead & lead) {
                 return lead.getId() == stoi(leadId);
             });
 
@@ -476,7 +476,7 @@ public:
                 contactList.add(contact);
             }
 
-            contactCounter = max(contactCounter, stoi(id) % 100); 
+            contactCounter = max(contactCounter, stoi(id) % 100);
         }
 
         leadFile.close();
@@ -500,47 +500,47 @@ int main() {
         cout << "7. Display All Leads and Contacts" << endl;
         cout << "8. Display All Contacts" << endl;
         cout << "9. Exit" << endl;
+
         cout << "Enter your choice: ";
-         
         int choice;
-        if (!(cin >> choice)) { 
+        if (!(cin >> choice)) {
             cout << "Invalid input. Please enter an integer value." << endl;
-            cin.clear(); 
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             continue;
         };
 
         switch (choice) {
-            case 1:
-                crm.addLead();
-                break;
-            case 2:
-                crm.addContactToLead();
-                break;
-            case 3:
-                crm.modifyLead();
-                break;
-            case 4:
-                crm.modifyContact();
-                break;
-            case 5:
-                crm.searchLeadsByName();
-                break;
-            case 6:
-                crm.searchContactsByName();
-                break;
-            case 7:
-                crm.displayAllLeadsAndContacts();
-                break;
-            case 8:
-                crm.displayAllContacts();
-                break;
-            case 9:
-                crm.saveDataToFile();
-                cout << "Exiting program. Goobye!" << endl;
-                return 0;
-            default:
-                cout << "Invalid choice! Try again." << endl;
+        case 1:
+            crm.addLead();
+            break;
+        case 2:
+            crm.addContactToLead();
+            break;
+        case 3:
+            crm.modifyLead();
+            break;
+        case 4:
+            crm.modifyContact();
+            break;
+        case 5:
+            crm.searchLeadsByName();
+            break;
+        case 6:
+            crm.searchContactsByName();
+            break;
+        case 7:
+            crm.displayAllLeadsAndContacts();
+            break;
+        case 8:
+            crm.displayAllContacts();
+            break;
+        case 9:
+            crm.saveDataToFile();
+            cout << "Exiting program!!" << endl;
+            return 0;
+        default:
+            cout << "Invalid choice! Plz try again." << endl;
         }
     }
 
