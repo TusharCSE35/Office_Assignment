@@ -1,7 +1,0 @@
-101|A|a@gmail.com|01456723872|1
-102|BB|bb@gmail.com|01789876545|1
-203|J|j@gmail.com|01382939281|2
-204|F|f@gmail.com|01656789876|2
-305|M|m@gmail.com|01432454234|3
-406|P|p@gmail.com|01323452434|4
-407|J|j@gmail.com|01298787654|4

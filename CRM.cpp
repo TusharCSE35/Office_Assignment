@@ -170,11 +170,9 @@ public:
             return;
         }
 
-
         int leadId;
         cout << "Enter Lead ID to add a contact: ";
         cin >> leadId;
-
         Node<Lead>* leadNode = leadList.search([&](const Lead & lead) {
             return lead.getId() == leadId;
         });
@@ -203,7 +201,6 @@ public:
         cout << "Contact added successfully to the lead." << endl;
     }
 
-
     void modifyLead() {
         string leadName;
         cout << "Enter Lead Name to search: ";
@@ -226,7 +223,6 @@ public:
         int leadId;
         cout << "Enter Lead ID to modify: ";
         cin >> leadId;
-
         Node<Lead>* leadNode = leadList.search([&](const Lead & lead) {
             return lead.getId() == leadId;
         });
@@ -272,7 +268,6 @@ public:
             }
             leadNode = leadNode->next;
         }
-
         if (!flag) {
             cout << "No contacts found with the name: " << contactName << endl;
         }
@@ -324,7 +319,6 @@ public:
         }
     }
 
-
     void searchLeadsByName() {
         string leadName;
         cout << "Enter Lead Name to search: ";
@@ -371,7 +365,6 @@ public:
         }
     }
 
-
     void displayAllLeadsAndContacts() {
         if (!leadList.getHead()) {
             cout << "No leads available." << endl;
@@ -389,7 +382,6 @@ public:
             leadNode = leadNode->next;
         }
     }
-
 
     void displayAllLeads() {
         if (!leadList.getHead()) {
@@ -410,9 +402,6 @@ public:
             contact.display();
         });
     }
-
-
-
 
     void saveDataToFile() {
         ofstream leadFile("leads.txt");
@@ -442,7 +431,6 @@ public:
         contactFile.close();
         cout << "Data saved to files successfully." << endl;
     }
-
 
     void loadDataFromFile() {
         ifstream leadFile("leads.txt");
@@ -556,7 +544,8 @@ int main() {
         case 10:
             crm.saveDataToFile();
             cout << "Exiting program!" << endl;
-        return 0;        default:
+            return 0;
+        default:
             cout << "Invalid choice! Plz try again." << endl;
         }
     }
