@@ -265,6 +265,24 @@ public:
         }
         storage->loadLeads(leadList);
         storage->loadContacts(contactList, leadList);
+
+        if (isFileBased) {
+            if (leadList.getHead()) {
+                Node<Lead>* leadNode = leadList.getHead();
+                while (leadNode) {
+                    leadCounter = max(leadCounter, leadNode->data.getId());
+                    leadNode = leadNode->next;
+                }
+            }
+
+            if (contactList.getHead()) {
+                Node<Contact>* contactNode = contactList.getHead();
+                while (contactNode) {
+                    contactCounter = max(contactCounter, contactNode->data.getId() % 100);
+                    contactNode = contactNode->next;
+                }
+            }
+        }
     }
 
     void saveData() {
